@@ -18,7 +18,8 @@ certbot_certs: []
 # - domains:
 #     - example3.com
 certbot_create_command: >-
-  {{ certbot_script }} certonly --standalone --noninteractive --agree-tos
+  {{ certbot_script }} certonly --{{ certbot_create_method }}
+  --noninteractive --agree-tos
   --email {{ cert_item.email | default(certbot_admin_email) }}
   -d {{ cert_item.domains | join(',') }}
 
@@ -36,4 +37,5 @@ certbot_keep_updated: true
 
 # Where to put Certbot when installing from source.
 certbot_dir: /opt/certbot
-certbot_webroot: /var/www/letsencrypt
+
+certbot_webroot_path: /var/www/letsencrypt
