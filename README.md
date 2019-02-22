@@ -53,7 +53,7 @@ The `certbot_create_command` defines the command used to generate the cert.
 
 #### Standalone Certificate Generation
 
-    certbot_create_standalone_stop_services:
+    certbot_standalone_stop_services:
       - nginx
 
 Services that should be stopped while `certbot` runs it's own standalone server on ports 80 and 443. If you're running Apache, set this to `apache2` (Ubuntu), or `httpd` (RHEL), or if you have Nginx on port 443 and something else on port 80 (e.g. Varnish, a Java app, or something else), add it to the list so it is stopped when the certificate is generated.
@@ -88,12 +88,12 @@ None.
 ## Example Playbook
 
     - hosts: servers
-    
+
       vars:
         certbot_auto_renew_user: your_username_here
         certbot_auto_renew_minute: 20
         certbot_auto_renew_hour: 5
-    
+
       roles:
         - geerlingguy.certbot
 

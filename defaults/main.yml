@@ -8,6 +8,7 @@ certbot_auto_renew_options: "--quiet --no-self-upgrade"
 
 # Parameters used when creating new Certbot certs.
 certbot_create_if_missing: false
+# standalone, webroot
 certbot_create_method: standalone
 certbot_admin_email: email@example.com
 certbot_certs: []
@@ -23,8 +24,9 @@ certbot_create_command: >-
   --email {{ cert_item.email | default(certbot_admin_email) }}
   -d {{ cert_item.domains | join(',') }}
 
-certbot_create_standalone_stop_services:
-  - nginx
+# Options for certbot_create_method: standalone
+certbot_standalone_stop_services: []
+  # - nginx
   # - apache
   # - varnish
 
@@ -38,4 +40,5 @@ certbot_keep_updated: true
 # Where to put Certbot when installing from source.
 certbot_dir: /opt/certbot
 
+# Options for certbot_create_method: webroot
 certbot_webroot_path: /var/www/letsencrypt
