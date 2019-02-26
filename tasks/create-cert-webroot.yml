@@ -4,6 +4,10 @@
     path: /etc/letsencrypt/live/{{ cert_item.domains | first | replace('*.', '') }}/cert.pem
   register: letsencrypt_cert
 
+- name: Create certbot webroot directory
+  file: path={{ certbot_webroot_path }} state=directory
+  when: not letsencrypt_cert.stat.exists
+
 - name: Generate new certificate if one doesn't exist.
   command: "{{ certbot_create_command }} --webroot-path {{ certbot_webroot_path }}"
   when: not letsencrypt_cert.stat.exists
